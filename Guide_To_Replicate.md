@@ -7,8 +7,13 @@ The purpose of this project was to design, build and demonstrate the correct fun
 <!Image of finished project>
 <img src="https://user-images.githubusercontent.com/93169706/204583413-05c93751-8418-4080-a862-bc4307ead1fb.jpg" width="200">
 
+# Table of Contents
+1. [1st STEP: ESTABLISH THE LOGIC OF THE TRAFFIC LIGHTS AND THE CRUISE](#one)
+2. [2nd STEP: Establish the VHDL Design](#two)
+3. [Third Example](#third-example)
+4. [Fourth Example](#fourth-examplehttpwwwfourthexamplecom)
 
-## 1st STEP: ESTABLISH THE LOGIC OF THE TRAFFIC LIGHTS AND THE CRUISE
+## 1st STEP: ESTABLISH THE LOGIC OF THE TRAFFIC LIGHTS AND THE CRUISE <a name="one"></a>
 >Note: The logic of the traffic lights and the cruise are different!!
 
 ### Logic of traffic lights:
