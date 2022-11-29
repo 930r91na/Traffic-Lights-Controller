@@ -10,4 +10,4 @@ This cruise includes traffic lights for cars, bikes and pedestrians. The planted
 The objectives of the design were to control the lights and make a regressive counter for the pedestrians so that they would notice how much time left they have as they cross the street.
 
 
-
+<img src="https://user-images.githubusercontent.com/93169706/204668020-90990a87-0de0-427b-a74e-1db49d8dd8bf.mp4" width="400">
