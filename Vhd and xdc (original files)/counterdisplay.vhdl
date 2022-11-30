@@ -1,0 +1,28 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+
+Use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+entity COUNTERD is
+Port (CLK,RST : in STD_LOGIC;
+COUNT :inout STD_LOGIC_VECTOR (2 downto 0)
+);--vector de 3 
+end COUNTERD;
+
+architecture ARCH_COUNTERD of COUNTERD is  
+
+begin
+
+process (COUNT,CLK,RST)--para secuenciales procesos secuenciales solo las entradas
+
+begin
+
+if(RST='1')then 
+COUNT<="000";
+elsif(rising_edge(CLK))then
+COUNT <= COUNT+1;
+
+end if;
+end process;
+end ARCH_COUNTERD;
