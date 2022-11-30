@@ -1,0 +1,139 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_ARITH.ALL;
+
+Use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+--Declared i/o
+entity Main is
+Port (
+--INPUT
+--Clock
+CLK,RST : in STD_LOGIC;
+
+--OUTPUT
+--Outputs for pedestrians
+P113: out STD_LOGIC;
+P213: out STD_LOGIC;
+P124: out STD_LOGIC;
+P224: out STD_LOGIC;
+P113N: out STD_LOGIC;
+P213N: out STD_LOGIC;
+P124N: out STD_LOGIC;
+P224N: out STD_LOGIC;
+--Outputs for cars
+C11green:out STD_LOGIC;
+C11red:out STD_LOGIC;
+C11yellow:out STD_LOGIC;
+C21turn:out STD_LOGIC;
+C12green:out STD_LOGIC;
+C12red:out STD_LOGIC;
+C12yellow:out STD_LOGIC;
+C32turn:out STD_LOGIC;
+C14green:out STD_LOGIC;
+C14red:out STD_LOGIC;
+C14yellow:out STD_LOGIC;
+C24turn:out STD_LOGIC;
+--Outputs for BIKES
+B11:out STD_LOGIC;
+B14:out STD_LOGIC;
+B12:out STD_LOGIC;
+--diaplay
+a1, b1, c1, d1, e1, f1, g1 : out std_logic;
+activation, not_activation :out std_logic;
+RSTL: in std_logic
+);--vector de 4 
+end Main;
+
+architecture arch_Main of Main is  
+--signals
+signal CLK_1, CLK_2,CLK_3 : STD_LOGIC;
+signal COUNT_controller : STD_LOGIC_VECTOR (3 downto 0);
+signal COUNT_lights : STD_LOGIC_VECTOR (3 downto 0);
+signal TP :  STD_LOGIC_VECTOR (3 downto 0);
+signal TC :  STD_LOGIC_VECTOR (5 downto 0);
+signal TB :  STD_LOGIC_VECTOR (2 downto 0);
+signal temp :  STD_LOGIC_VECTOR (2 downto 0);
+
+component Clock_Divider is 
+Port ( clk,reset: in std_logic;
+clock_out1: inout std_logic;
+clock_out2: inout std_logic;
+clock_out3: inout std_logic);
+end component; 
+
+--components
+component SOURCE is
+Port (CLK,RST : in STD_LOGIC;
+COUNT :inout STD_LOGIC_VECTOR (3 downto 0)
+);--vector de 4 
+end component;
+
+component Controller is
+Port (
+COUNT :in STD_LOGIC_VECTOR (3 downto 0);
+TP : out std_logic_vector (3 downto 0);
+TC : out std_logic_vector (5 downto 0);
+TB : out std_logic_vector (2 downto 0)
+); 
+end component;
+
+component TL4states is
+Port (
+COUNT :in STD_LOGIC_VECTOR (3 downto 0);
+Tstate: in STD_LOGIC;
+TstateTurn: in STD_LOGIC;
+Lgreen: out STD_LOGIC;
+Lred: out STD_LOGIC;
+Lyellow: out STD_LOGIC;
+Lturn: out std_logic
+);
+end component;
+
+COMPONENT COUNTERD is
+Port (CLK,RST : in STD_LOGIC;
+COUNT :inout STD_LOGIC_VECTOR (2 downto 0)
+);--vector de 3 
+end COMPONENT;
+
+COMPONENT display is
+    port (
+        a, b, c, d, e, f, g : out std_logic;
+         x: inout std_logic_vector(2 downto 0)
+    );
+end COMPONENT;
+
+begin
+--display
+activation <='0';
+not_activation <='1';
+U7: Clock_Divider port map(clk=>CLK,reset=>RST,clock_out1=>CLK_1,clock_out2=>CLK_2, clock_out3=>CLK_3);
+--Generation of two counters 
+U1: SOURCE port map(CLK=>CLK_1,RST=>RST,COUNT=>COUNT_controller);
+U2: SOURCE port map(CLK=>CLK_2,RST=>RST,COUNT=>COUNT_lights);
+--clk2
+
+--Controller
+U3: Controller port map(COUNT=>COUNT_controller,TP=>TP,TC=>TC,TB=>TB);
+
+P113<=TP(3);
+P213<=TP(2);
+P124<=TP(1);
+P224<=TP(0);
+P113N<=not TP(3);
+P213N<=not TP(2);
+P124N<=not TP(1);
+P224N<=not TP(0);
+B11<= TB(2);
+B14<= TB(0);
+B12<= TB(1);
+
+--TL4STATES
+U4: TL4states port map (COUNT=>COUNT_lights,Tstate=>TC(5),TstateTurn=>TC(4),Lgreen=>C11green,Lred=>C11red,Lyellow=>C11yellow,Lturn=>C21turn);
+U5: TL4states port map(COUNT=>COUNT_lights,Tstate=>TC(3),TstateTurn=>TC(2),Lgreen=>C12green,Lred=>C12red,Lyellow=>C12yellow,Lturn=>C32turn);
+U6: TL4states port map(COUNT=>COUNT_lights,Tstate=>TC(1),TstateTurn=>TC(0),Lgreen=>C14green,Lred=>C14red,Lyellow=>C14yellow,Lturn=>C24turn);
+
+--7SEGMENTDISPLAY
+U8: COUNTERD port map (CLK=>CLK_3,RST=>RSTL,COUNT=>temp);
+U9: display port map (a=>a1,b=>b1,c=>c1,d=>d1,e=>e1,f=>f1,g=>g1,x=>temp);
+end arch_Main;
