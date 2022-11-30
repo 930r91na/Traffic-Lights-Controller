@@ -514,7 +514,8 @@ To the implementation was used a Digilent Basys 3™ Artix-7 FPGA Trainer Board 
 
 ![fpga](https://user-images.githubusercontent.com/93169706/204681745-cf15b3b1-3c38-451b-8504-94f1d45a3c06.png)
 
-For the vivado software 
+For the vivado software is needed a Master xdc that basically are the rulesof the outputs and inputs given by your code to the basys 
+Read more [here](./TXT_version_files/master.txt)
 
 
 
