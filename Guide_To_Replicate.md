@@ -506,7 +506,7 @@ end tb;
 
 The simulation can be seen in the following image
 ![MicrosoftTeams-image (5)](https://user-images.githubusercontent.com/93169706/204680019-0d43d1f7-3243-4c4a-982b-5126d3317622.png)
-It was used 
+And it is seen how succefully the transitions are made in the 2 and 4 states TL
 
 ## 6th STEP: Implementig <a name="six"></a>
 ### Technical sepcifications
@@ -514,12 +514,15 @@ To the implementation was used a Digilent Basys 3™ Artix-7 FPGA Trainer Board 
 
 ![fpga](https://user-images.githubusercontent.com/93169706/204681745-cf15b3b1-3c38-451b-8504-94f1d45a3c06.png)
 
+For the vivado software 
 
+
+
+### JUST WTF with the FPGA CLOCK?
+The FPGA clock has a frequency of 10000 Mhz 
 
 
 ### DEBUGGING
-
-### JUST WTF with the FPGA CLOCK?
 
 
 ## Extra: Mock-up <a name="ext"></a>
