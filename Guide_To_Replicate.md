@@ -7,8 +7,18 @@ The purpose of this project was to design, build and demonstrate the correct fun
 <!Image of finished project>
 <img src="https://user-images.githubusercontent.com/93169706/204583413-05c93751-8418-4080-a862-bc4307ead1fb.jpg" width="200">
 
+# Table of Contents
+1. [1st STEP: ESTABLISH THE LOGIC OF THE TRAFFIC LIGHTS AND THE CRUISE](#one)
+2. [2nd STEP: Establish the VHDL Design](#two)
+3. [3rd STEP: Coding Components](#tre)
+4. [4rd STEP: Unite Code ](#fou)
+5. [5th STEP: Testing](#fiv)
+6. [6th STEP: Implementig](#six)
+7. [Extra: Mock-up](#ext)
 
-## 1st STEP: ESTABLISH THE LOGIC OF THE TRAFFIC LIGHTS AND THE CRUISE
+
+## 1st STEP: ESTABLISH THE LOGIC OF THE TRAFFIC LIGHTS AND THE CRUISE <a name="one"></a>
+
 >Note: The logic of the traffic lights and the cruise are different!!
 
 ### Logic of traffic lights:
@@ -45,7 +55,7 @@ From that table it can be easily selected combination of states that avoid accid
 In this case were selected the four combinations in which it was priorized that all the TL were at least at one moment on (allowed to pass) and using the combinaions that had more cars invloved because the flow of cars is greater than the pedestrians or bikes.
 
 
-## 2nd STEP: Establish the VHDL Design 
+## 2nd STEP: Establish the VHDL Design <a name="two"></a>
 
 The design established is in structural. There ia a controller for all the TL is the part when it changes from state to state or combination to combination. The second is a controller of the inner lights of a TL in case of the 2 states, green is on when 1 and red when 0, it is direct. But in the four state TL is needed a inner clock that coordinate the changes and the blink. Finally with those main components there is the next sketch of the relationship from input and outputs.
 
@@ -71,7 +81,7 @@ The zoom to the main parts:
 In this it can be seen that the TL2 state is unrequired because the output is mainly the input, and so that component is unnecesary.
 
 
-## 3rd STEP: Coding Components
+## 3rd STEP: Coding Components <a name="tre"></a>
 
 ### Create Individual Components
 
@@ -216,20 +226,256 @@ end process;
 ```
 ![statespcontroller](https://user-images.githubusercontent.com/93169706/204672199-22537bef-db8d-40d5-af22-19aaa88e621b.png)
 
+#### TL4 states (times called: 3)
+
+For the change of the states is needed as a input a counter made by Clock_out2, Tstate and TstateTurn which are the output of the principal conroller.
+```
+entity TL4states is
+Port (
+COUNT :in STD_LOGIC_VECTOR (3 downto 0);
+Tstate: in STD_LOGIC;
+TstateTurn: in STD_LOGIC;
+Lgreen: out STD_LOGIC;
+Lred: out STD_LOGIC;
+Lyellow: out STD_LOGIC;
+Lturn: out STD_LOGIC
+);
+end TL4states;
+```
+
+Given that it was created a truth table and from each output is is get the simplified function that are assigned.
+
+![t4sta](https://user-images.githubusercontent.com/93169706/204676725-64b3e3ad-8662-41bc-b70d-fa4e53891540.png)
+
+```
+architecture arch_TL4states of TL4states is  
+begin
+
+--STATES ACCORDING TO SIMP.FUNCTIONS BY KARNAUGH MAPS
+Lturn<=TstateTurn;
+Lgreen<=(Tstate and (not COUNT(3))) or (Tstate and (not COUNT(2)) and COUNT(0));--Function G
+Lyellow<=(Tstate and COUNT(3) and COUNT(2) and (not COUNT(1))) or (Tstate and COUNT(3) and COUNT(2) and (not COUNT(0)));--Function Y
+Lred<= not Tstate or ( Tstate and COUNT(3) and COUNT(2) and COUNT(1) and COUNT(0)); --Function R
+
+end arch_TL4states;
+```
+
+#### BCD to 7segment display (times called: 1)
+
+The assigned outputs are the required for a display and he input is the counter of 3 bits created by the Clock_out3
+```
+entity display is
+    port (
+        a, b, c, d, e, f, g : out std_logic;--8 outputs as display requires
+         x: inout std_logic_vector(2 downto 0)-- vector of counter 3 bits
+    );
+end entity;
+
+```
+
+The values associated with the counter are the opposite so it counts from 7 to 0
+
+```
+architecture arch of display is
+begin
+    -- Decode
+    process (x)
+        variable auxVectOut : std_logic_vector (6 downto 0);
+    begin
+
+        --It is assigned in decrease so it is a regresive counter
+        if    x = "000" then auxVectOut := "0001111"; -- 7
+        elsif x = "001" then auxVectOut := "0100000"; -- 6
+        elsif x = "010" then auxVectOut := "0100100"; -- 5
+        elsif x = "011" then auxVectOut := "1001100"; -- 4
+        elsif x = "100" then auxVectOut := "0000110"; -- 3
+        elsif x = "101" then auxVectOut := "0010010"; -- 2
+        elsif x = "110" then auxVectOut := "1001111"; -- 1
+        elsif x = "111" then auxVectOut := "0000001"; -- 0
+        end if;
+...
+```
+ 
+## 4rd STEP: Unite Code <a name="fou"></a>
+
+With all the components ready the final step is to unite everything at the main vhdl file
+
+First it will be declared the inputs which is only the main clock and its reset
+
+```
+--Declared i/o
+entity Main is
+Port (
+--INPUT
+--Clock
+CLK,RST : in STD_LOGIC;
+```
+The outputs for each light as it is needed for the mockup
+```
+--OUTPUT
+--Outputs for pedestrians
+P113: out STD_LOGIC;
+P213: out STD_LOGIC;
+P124: out STD_LOGIC;
+P224: out STD_LOGIC;
+P113N: out STD_LOGIC;
+P213N: out STD_LOGIC;
+P124N: out STD_LOGIC;
+P224N: out STD_LOGIC;
+--Outputs for cars
+C11green:out STD_LOGIC;
+C11red:out STD_LOGIC;
+C11yellow:out STD_LOGIC;
+C21turn:out STD_LOGIC;
+C12green:out STD_LOGIC;
+C12red:out STD_LOGIC;
+C12yellow:out STD_LOGIC;
+C32turn:out STD_LOGIC;
+C14green:out STD_LOGIC;
+C14red:out STD_LOGIC;
+C14yellow:out STD_LOGIC;
+C24turn:out STD_LOGIC;
+--Outputs for BIKES
+B11:out STD_LOGIC;
+B14:out STD_LOGIC;
+B12:out STD_LOGIC;
+
+```
+Outputs for the display
+```
+--display
+a1, b1, c1, d1, e1, f1, g1 : out std_logic;
+activation, not_activation :out std_logic;
+RSTL: in std_logic
+);--vector de 4 
+end Main;
+```
+
+Create the intermedary signals
+```
+architecture arch_Main of Main is  
+--signals
+signal CLK_1, CLK_2,CLK_3 : STD_LOGIC;
+signal COUNT_controller : STD_LOGIC_VECTOR (3 downto 0);
+signal COUNT_lights : STD_LOGIC_VECTOR (3 downto 0);
+signal TP :  STD_LOGIC_VECTOR (3 downto 0);
+signal TC :  STD_LOGIC_VECTOR (5 downto 0);
+signal TB :  STD_LOGIC_VECTOR (2 downto 0);
+signal temp :  STD_LOGIC_VECTOR (2 downto 0);
+
+```
+Calling each component
+```
+component Clock_Divider is 
+Port ( clk,reset: in std_logic;
+clock_out1: inout std_logic;
+clock_out2: inout std_logic;
+clock_out3: inout std_logic);
+end component; 
+
+--components
+component SOURCE is
+Port (CLK,RST : in STD_LOGIC;
+COUNT :inout STD_LOGIC_VECTOR (3 downto 0)
+);--vector de 4 
+end component;
+
+component Controller is
+Port (
+COUNT :in STD_LOGIC_VECTOR (3 downto 0);
+TP : out std_logic_vector (3 downto 0);
+TC : out std_logic_vector (5 downto 0);
+TB : out std_logic_vector (2 downto 0)
+); 
+end component;
+
+component TL4states is
+Port (
+COUNT :in STD_LOGIC_VECTOR (3 downto 0);
+Tstate: in STD_LOGIC;
+TstateTurn: in STD_LOGIC;
+Lgreen: out STD_LOGIC;
+Lred: out STD_LOGIC;
+Lyellow: out STD_LOGIC;
+Lturn: out std_logic
+);
+end component;
+
+COMPONENT COUNTERD is
+Port (CLK,RST : in STD_LOGIC;
+COUNT :inout STD_LOGIC_VECTOR (2 downto 0)
+);--vector de 3 
+end COMPONENT;
+
+COMPONENT display is
+    port (
+        a, b, c, d, e, f, g : out std_logic;
+         x: inout std_logic_vector(2 downto 0)
+    );
+end COMPONENT;
+```
+Connecting the components
+
+To use the display
+```
+begin
+--display
+activation <='0';
+not_activation <='1';
+```
+Creation of the 3 clocks
+```
+U7: Clock_Divider port map(clk=>CLK,reset=>RST,clock_out1=>CLK_1,clock_out2=>CLK_2, clock_out3=>CLK_3);
+```
+Generation of two counters 
+```
+U1: SOURCE port map(CLK=>CLK_1,RST=>RST,COUNT=>COUNT_controller);
+U2: SOURCE port map(CLK=>CLK_2,RST=>RST,COUNT=>COUNT_lights);
+```
+
+Principal Controller assignation
+```
+U3: Controller port map(COUNT=>COUNT_controller,TP=>TP,TC=>TC,TB=>TB);
+```
+The following assignations works as the TL2 states components
+```
+P113<=TP(3);
+P213<=TP(2);
+P124<=TP(1);
+P224<=TP(0);
+P113N<=not TP(3);
+P213N<=not TP(2);
+P124N<=not TP(1);
+P224N<=not TP(0);
+B11<= TB(2);
+B14<= TB(0);
+B12<= TB(1);
+
+```
+TL4 States assignation
+```
+U4: TL4states port map (COUNT=>COUNT_lights,Tstate=>TC(5),TstateTurn=>TC(4),Lgreen=>C11green,Lred=>C11red,Lyellow=>C11yellow,Lturn=>C21turn);
+U5: TL4states port map(COUNT=>COUNT_lights,Tstate=>TC(3),TstateTurn=>TC(2),Lgreen=>C12green,Lred=>C12red,Lyellow=>C12yellow,Lturn=>C32turn);
+U6: TL4states port map(COUNT=>COUNT_lights,Tstate=>TC(1),TstateTurn=>TC(0),Lgreen=>C14green,Lred=>C14red,Lyellow=>C14yellow,Lturn=>C24turn);
+```
+Display
+```
+--7SEGMENTDISPLAY
+U8: COUNTERD port map (CLK=>CLK_3,RST=>RSTL,COUNT=>temp);
+U9: display port map (a=>a1,b=>b1,c=>c1,d=>d1,e=>e1,f=>f1,g=>g1,x=>temp);
+end arch_Main;
+```
+
+## 5th STEP: Testing <a name="fiv"></a>
+### Testbench Code
+```
+```
 
 
+## 6th STEP: Implementig <a name="six"></a>
 
-## 4rd STEP: Coding Unite
-
-
-## 5th STEP: Testing
-
-
-
-## 5th STEP: Implementig
-
-## Extra: Mock-up
-### 6th STEP: 
+## Extra: Mock-up <a name="ext"></a>
+### 7th STEP: 
 
 
 
