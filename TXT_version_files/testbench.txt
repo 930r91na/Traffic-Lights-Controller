@@ -1,0 +1,81 @@
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+use IEEE.STD_LOGIC_ARITH.ALL;
+
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+entity Main_tb is
+
+end entity;
+
+
+architecture tb of Main_tb is
+
+
+
+component Main is
+Port (
+CLK,RST : in STD_LOGIC;
+--Outputs for pedestrians
+P113: out STD_LOGIC;
+P213: out STD_LOGIC;
+P124: out STD_LOGIC;
+P224: out STD_LOGIC;
+P113N: out STD_LOGIC;
+P213N: out STD_LOGIC;
+P124N: out STD_LOGIC;
+P224N: out STD_LOGIC;
+--Outputs for cars
+C11green:out STD_LOGIC;
+C11red:out STD_LOGIC;
+C11yellow:out STD_LOGIC;
+C21turn:out STD_LOGIC;
+C12green:out STD_LOGIC;
+C12red:out STD_LOGIC;
+C12yellow:out STD_LOGIC;
+C32turn:out STD_LOGIC;
+C14green:out STD_LOGIC;
+C14red:out STD_LOGIC;
+C14yellow:out STD_LOGIC;
+C24turn:out STD_LOGIC;
+--Outputs for BIKES
+B11:out STD_LOGIC;
+B14:out STD_LOGIC;
+B12:out STD_LOGIC;
+--diaplay
+a1, b1, c1, d1, e1, f1, g1 : out std_logic;
+activation, not_activation :out std_logic;
+RSTL: in std_logic
+);--vector de 4 
+end component;
+
+ 
+
+signal CLK ,RST, RSTL : STD_LOGIC :='1';
+begin
+
+uut: Main port map(
+
+CLK => CLK,
+RST=>RST,
+RSTL=>RSTL);
+
+clock: process
+
+begin
+
+RST <='0';
+RSTL<= '0';
+
+CLK <= '1';
+
+wait for 5 ns;
+
+CLK <= '0';
+
+wait for 5 ns;
+end process;
+end tb;
+
