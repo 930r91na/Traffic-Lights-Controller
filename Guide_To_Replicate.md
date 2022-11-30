@@ -510,11 +510,11 @@ And it is seen how succefully the transitions are made in the 2 and 4 states TL
 
 ## 6th STEP: Implementig <a name="six"></a>
 ### Technical sepcifications
-To the implementation was used a Digilent Basys 3™ Artix-7 FPGA Trainer Board and the Vivado software
+For the implementation it was used a Digilent Basys 3™ Artix-7 FPGA Trainer Board and the Vivado software
 
 ![fpga](https://user-images.githubusercontent.com/93169706/204681745-cf15b3b1-3c38-451b-8504-94f1d45a3c06.png)
 
-Vivado can support 
+Since Vivado can support several hardware description languajes, it is important to set it to VHDL on the settings window, located on the top left corner once you enter the workspace on Vivado. Also, make sure to check the box to generate a bin file.
 
 For the Vivado software a Master xdc file is needed, these are basically the rules of the outputs and inputs given by your code to the basys. This is added as a constrain file. VHDL files that are part of the traffic light's design must be added as a source file to Vivado.
 Check the complete master code [here](./TXT_version_files/master.txt)
@@ -527,11 +527,13 @@ set_property PACKAGE_PIN W5 [get_ports CLK]
 	create_clock -add -name sys_clk_pin -period 10.00 -waveform {0 5} [get_ports CLK]
 ```
 
-After declaring each physical input and output (each on an individual port of the basys), the program needs to run a synthesis, 
+After declaring each physical input and output (each on an individual port of the basys), the program needs to run a synthesis, in a way, this means that Vivado will verifyt the accuracy of the code and, in this case, that each vhdl file is declared on the main one (since it was made on an structural aproach). IF there's any syntaxis mistake on any of the codes, Vivado will let you know by interrupting the synthesis process. After the synthesis is done, the next process is running the implementation, after waitng a while, a new window will appear; select the option Generate Bitstream. This is the time where the FPGA must be connected. Once the generation is completed, you can now close the window.
 
-The whole implementation process needs to be ran everytime there's a change on any xdc or vhdl file, this way, we make sure that the newest and error-free version of our desing is being testes on the FPGA. A red message in the top right corner of the screeen stating "Implementation Out-of-date" will appear each time the implementation needs to be updated. Please be patient with the processes, since the whole implementation process usually takes more than 5 minutes to complete.
+On the top of the screen there should be a green bar stating that "No hardware target is open", select Open Targent and then the code corresponding to the Basys 3, this way, Vivado will detect the FPGA and will be ready for any further instruction. On the right menu (Flow Navigator), look for the Program Device on the section "Program and Debug", once you click on this option, the FPGA will be programed with the codes on Vivado.
 
-For more information about the implementation process on Artix-7 FPGA, please refere to ![implementacion](https://docs.xilinx.com/r/en-US/ug949-vivado-design-methodology/Design-Implementation)
+The whole implementation process needs to be ran everytime there's a change on any xdc or vhdl file, this way, we make sure that the newest and error-free version of our desing is being tested on the FPGA. A red message in the top right corner of the screeen stating "Implementation Out-of-date" will appear each time the implementation needs to be updated. Please be patient with the processes, since the whole implementation process usually takes more than 5 minutes to complete.
+
+For more information about the implementation process on Artix-7 FPGA, please refere to [this link](https://docs.xilinx.com/r/en-US/ug949-vivado-design-methodology/Design-Implementation)
 
 
 ### JUST WTF with the FPGA CLOCK?
