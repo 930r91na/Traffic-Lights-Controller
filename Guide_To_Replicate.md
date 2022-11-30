@@ -515,8 +515,15 @@ To the implementation was used a Digilent Basys 3™ Artix-7 FPGA Trainer Board 
 ![fpga](https://user-images.githubusercontent.com/93169706/204681745-cf15b3b1-3c38-451b-8504-94f1d45a3c06.png)
 
 For the vivado software is needed a Master xdc that basically are the rulesof the outputs and inputs given by your code to the basys 
-Read more [here](./TXT_version_files/master.txt)
+Check the complete master code [here](./TXT_version_files/master.txt)
+Also to use the FPGA correctly it was useful the oficial manual of the FPGA check it [here](https://digilent.com/reference/programmable-logic/basys-3/reference-manual).
 
+```
+## Clock signal
+set_property PACKAGE_PIN W5 [get_ports CLK]
+	set_property IOSTANDARD LVCMOS33 [get_ports CLK]
+	create_clock -add -name sys_clk_pin -period 10.00 -waveform {0 5} [get_ports CLK]
+```
 
 
 ### JUST WTF with the FPGA CLOCK?
