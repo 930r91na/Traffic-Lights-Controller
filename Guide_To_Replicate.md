@@ -8,7 +8,7 @@ The purpose of this project was to design, build and demonstrate the correct fun
 <img src="https://user-images.githubusercontent.com/93169706/204583413-05c93751-8418-4080-a862-bc4307ead1fb.jpg" width="200">
 
 # Table of Contents
-1. [1st STEP: ESTABLISH THE LOGIC OF THE TRAFFIC LIGHTS AND THE CRUISE](#one)
+1. [1st STEP: Establish the logic of traffic lights and the cruise](#one)
 2. [2nd STEP: Establish the VHDL Design](#two)
 3. [3rd STEP: Coding Components](#tre)
 4. [4th STEP: Unite Code ](#fou)
@@ -17,7 +17,7 @@ The purpose of this project was to design, build and demonstrate the correct fun
 8. [Extra: Mock-up](#ext)
 
 
-## 1st STEP: ESTABLISH THE LOGIC OF THE TRAFFIC LIGHTS AND THE CRUISE <a name="one"></a>
+## 1st STEP: Establish the logic of traffic lights and the cruise <a name="one"></a>
 
 >Note: The logic of the traffic lights and the cruise are different!!
 
