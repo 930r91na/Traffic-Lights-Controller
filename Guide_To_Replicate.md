@@ -11,10 +11,10 @@ The purpose of this project was to design, build and demonstrate the correct fun
 1. [1st STEP: ESTABLISH THE LOGIC OF THE TRAFFIC LIGHTS AND THE CRUISE](#one)
 2. [2nd STEP: Establish the VHDL Design](#two)
 3. [3rd STEP: Coding Components](#tre)
-4. [4rd STEP: Unite Code ](#fou)
-5. [5th STEP: Testing](#fiv)
-6. [6th STEP: Implementig](#six)
-7. [Extra: Mock-up](#ext)
+4. [4th STEP: Unite Code ](#fou)
+6. [5th STEP: Testing](#fiv)
+7. [6th STEP: Implementig](#six)
+8. [Extra: Mock-up](#ext)
 
 
 ## 1st STEP: ESTABLISH THE LOGIC OF THE TRAFFIC LIGHTS AND THE CRUISE <a name="one"></a>
@@ -260,6 +260,11 @@ Lred<= not Tstate or ( Tstate and COUNT(3) and COUNT(2) and COUNT(1) and COUNT(0
 end arch_TL4states;
 ```
 
+The inside of the component with the functions is the following
+
+![MicrosoftTeams-image (4)](https://user-images.githubusercontent.com/93169706/204679950-153277e8-2195-4d99-acb3-69ded9845413.png)
+
+
 #### BCD to 7segment display (times called: 1)
 
 The assigned outputs are the required for a display and he input is the counter of 3 bits created by the Clock_out3
@@ -296,7 +301,7 @@ begin
 ...
 ```
  
-## 4rd STEP: Unite Code <a name="fou"></a>
+## 4th STEP: Unite Code <a name="fou"></a>
 
 With all the components ready the final step is to unite everything at the main vhdl file
 
@@ -466,17 +471,70 @@ U9: display port map (a=>a1,b=>b1,c=>c1,d=>d1,e=>e1,f=>f1,g=>g1,x=>temp);
 end arch_Main;
 ```
 
+### The schematic
+The schematic of the components is the following:
+
+
+<img src="https://user-images.githubusercontent.com/93169706/204679453-b38c05a2-0094-45d4-885b-c1c07010ce78.png" width="900">
+Here is clearly seen the inputs, outputs, components ah how everything is interwined.
+
 ## 5th STEP: Testing <a name="fiv"></a>
 ### Testbench Code
+
+As the inputs are only two reset and a clock for the tesbench is only needed to simulate the clk and assign the resets to the default value given in the code
 ```
+signal CLK ,RST, RSTL : STD_LOGIC :='1';
+begin
+
+uut: Main port map(
+CLK => CLK,
+RST=>RST,
+RSTL=>RSTL);
+clock: process
+
+begin
+RST <='0';
+RSTL<= '0';
+CLK <= '1';
+wait for 5 ns;
+
+CLK <= '0';
+wait for 5 ns;
+end process;
+end tb;
 ```
 
+The simulation can be seen in the following image
+![MicrosoftTeams-image (5)](https://user-images.githubusercontent.com/93169706/204680019-0d43d1f7-3243-4c4a-982b-5126d3317622.png)
+It was used 
 
 ## 6th STEP: Implementig <a name="six"></a>
+### Technical sepcifications
+To the implementation was used a Digilent Basys 3™ Artix-7 FPGA Trainer Board and the Vivado software
+
+![fpga](https://user-images.githubusercontent.com/93169706/204681745-cf15b3b1-3c38-451b-8504-94f1d45a3c06.png)
+
+
+
+
+### DEBUGGING
+
+### JUST WTF with the FPGA CLOCK?
+
 
 ## Extra: Mock-up <a name="ext"></a>
-### 7th STEP: 
+### Materials
+* Red, yellow and green LED lights
+* 3D printer 
+* Resistors for every LED lights
+* Welding plate 
+* Welding kit
+* Wooden planks 
+* UTP cables
+* Laser cutter
+* Spray paint and glue
 
+### 
 
 
 
