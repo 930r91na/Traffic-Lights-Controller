@@ -544,9 +544,13 @@ The FPGA clock has a frequency of 10000 Mhz
 
 The next warnings were really frequent when designing the traffic light's controller project, here's a quick review on how to solve them or what can be causing the problem:
 
-* Failed synthesis with no syntax mistakes:
-	There sould be an extra source automatically created by Vivado and the extension is dcp, to eliminate this critital warning, delete this file.
-* 
+* Failed synthesis with no syntax mistakes: There sould be an extra source automatically created by Vivado and the extension is dcp, to eliminate this critital warning, delete this file.
+
+* Syntax error near...: There should be miswritten word, a missing character (. , ; ' ") or too many subsequential characters.
+
+* WARNING: No ports matched... or CRITICAL WARNING: (Common 17-55) 'set_property' expects at least one object: Every input and output should be specified on the Master xdc file, if not all of them are explicity declared and with the name expressed on the VHDL files, this warning will come up.
+
+* Combinatorial Loop Alert: This means some data is serving as a feedback, meaning that is an output and an input at the same time when it is only declared as one. Solutions include using keywords "buffer" or "inout" or, as it happened in this project, changing the conditions of counters, since this warning came up when we accidentally created an "infinite" counter.
 
 
 ## Extra: Mock-up <a name="ext"></a>
