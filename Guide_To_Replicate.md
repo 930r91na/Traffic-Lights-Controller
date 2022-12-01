@@ -1,8 +1,8 @@
 # Project Traffic-Lights-Controller
 
-This document is a *guide to replicate* a cruise in which it controll the Traffic Lights for bikes pedestrians and cars.
+This document is a *guide to replicate* a cruise in which it is controlled the Traffic Lights for bikes pedestrians and cars.
 
-The purpose of this project was to design, build and demonstrate the correct functioning of a traffic light cruise where cars, bicycles and pedestrians could interact without any troublesome, which meant no accidents or confusions for users
+The purpose of this project is to design, build and demonstrate the correct functioning of a traffic light cruise where cars, bicycles and pedestrians could interact without any troublesome, which means no accidents or confusions for the users.
 
 <!Image of finished project>
 <img src="https://user-images.githubusercontent.com/93169706/204583413-05c93751-8418-4080-a862-bc4307ead1fb.jpg" width="200">
@@ -26,7 +26,7 @@ The purpose of this project was to design, build and demonstrate the correct fun
 - Identify the types of traffic lights that exist, how they work and its properties.
 * Identify the number of states that has each type of traffic light (TL).
   * Those will be you outputs.
-In this case were identified two types
+In this case it was identified two types
 - For cars:
   - Four states red/yellow/green/turn(on/off).
   - They change so that it is green, then the green blinks, it goes to yellow and then it goes to red, and from this state it goes directly to green.
@@ -44,15 +44,15 @@ This can depend on the distribution of the rails of the cruise in interest. In t
 <img src="https://user-images.githubusercontent.com/93169706/204575703-367b9495-d4b5-4141-a686-dd1acc255d37.png" width="600">
 
 
-Then it was created a table calles strict ceros that represent the relationship between the TL.
+Then it was created a **table called strict ceros** that represent the relationship between the TL.
 <img src="https://user-images.githubusercontent.com/93169706/204583461-a0ff4477-a446-4595-a83c-3157b76f671d.png" width="800">
 
 
-From that table it can be easily selected combination of states that avoid accidents.
+From that table it can be easily selected n combination of states that avoid accidents.
 <img src="https://user-images.githubusercontent.com/93169706/204583471-89f76a2d-336a-448e-a91f-3a7845e9ec9f.png" width="800">
 
 
-In this case were selected the four combinations in which it was priorized that all the TL were at least at one moment on (allowed to pass) and using the combinaions that had more cars invloved because the flow of cars is greater than the pedestrians or bikes.
+In this case were selected the four combinations in which it was priorized that all the TL were at least at one moment on (allowed to pass) and using the combinaions that had more cars invloved because the flow of cars is greater than the pedestrians or bikes in the context of the cruise.
 
 
 ## 2nd STEP: Establish the VHDL Design <a name="two"></a>
@@ -89,7 +89,7 @@ Create each of the previous identified components
 >Here are only the main parts of each code, to see all the code go to the complete folder
 
 #### Clock Divider (times called: 1)
-It is needed the following libraries to make the count that will divde
+It is needed the following libraries to make the count that will divde.
 ```
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
@@ -105,7 +105,7 @@ clock_out2: inout std_logic;
 clock_out3: inout std_logic);
 end Clock_Divider; 
 ```
-Creation of auxiliar to divide the clock for each one
+Creation of auxiliar to divide the clock for each one.
 ```
 architecture bhv of Clock_Divider is 
 --Use different auxiliars for each clk
@@ -587,8 +587,8 @@ All of the cables that came from the LED lights were welded into a welding plate
 
 ![maqueta terminada 2](https://user-images.githubusercontent.com/93169706/204583490-dc14ea5f-824b-4307-b178-f5c2a085b111.jpg)
 
-Also the used display was the FPGA one but for esthetic purposes reasons we recommend use an exernal one. For that keep in count that the FPGA one is the type of common anode, so it works with 0 (led on), 1 (led off). So if you use of common cathode you will need to change the BCD to 7segment display component.
-And also you can avoid the outputs of activation wich are only necesaary for the FPGA display. Here is an image of the counter working.
+Also the used display was the FPGA one but for esthetic purposes  we recommend use an exernal one. For that keep in count that the FPGA display is of common anode, so it works with 0 (led on), 1 (led off). So if you use of common cathode you will need to change the BCD to 7segment display component.
+And also using a external one you can avoid the outputs of activation wich are only necesaary for the FPGA display. Here is an image of the counter working.
 
 <!![reloj](https://user-images.githubusercontent.com/93169706/204583514-d01c59f2-2551-43bf-9f53-a704f049d8de.png)>
 
