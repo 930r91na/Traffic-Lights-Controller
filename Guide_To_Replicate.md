@@ -1,6 +1,6 @@
 # Project Traffic-Lights-Controller
 
-This document is a guide to replicate a cruise in which is controll the Traffic Lights in a cruise.
+This document is a *guide to replicate* a cruise in which it controll the Traffic Lights for bikes pedestrians and cars.
 
 The purpose of this project was to design, build and demonstrate the correct functioning of a traffic light cruise where cars, bicycles and pedestrians could interact without any troublesome, which meant no accidents or confusions for users
 
