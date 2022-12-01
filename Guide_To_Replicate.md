@@ -527,7 +527,7 @@ set_property PACKAGE_PIN W5 [get_ports CLK]
 	create_clock -add -name sys_clk_pin -period 10.00 -waveform {0 5} [get_ports CLK]
 ```
 
-After declaring each physical input and output (each on an individual port of the basys), the program needs to run a synthesis, in a way, this means that Vivado will verifyt the accuracy of the code and, in this case, that each vhdl file is declared on the main one (since it was made on an structural aproach). IF there's any syntaxis mistake on any of the codes, Vivado will let you know by interrupting the synthesis process. After the synthesis is done, the next process is running the implementation, after waitng a while, a new window will appear; select the option Generate Bitstream. This is the time where the FPGA must be connected. Once the generation is completed, you can now close the window.
+After declaring each physical input and output (each on an individual port of the basys), the program needs to run a synthesis, in a way, this means that Vivado will verifyt the accuracy of the code and, in this case, that each vhdl file is declared on the main one (since it was made on an structural aproach). IF there's any syntax mistake on any of the codes, Vivado will let you know by interrupting the synthesis process. After the synthesis is done, the next process is running the implementation, after waitng a while, a new window will appear; select the option Generate Bitstream. This is the time where the FPGA must be connected. Once the generation is completed, you can now close the window.
 
 On the top of the screen there should be a green bar stating that "No hardware target is open", select Open Targent and then the code corresponding to the Basys 3, this way, Vivado will detect the FPGA and will be ready for any further instruction. On the right menu (Flow Navigator), look for the Program Device on the section "Program and Debug", once you click on this option, the FPGA will be programed with the codes on Vivado.
 
@@ -541,6 +541,12 @@ The FPGA clock has a frequency of 10000 Mhz
 
 
 ### DEBUGGING
+
+The next warnings were really frequent when designing the traffic light's controller project, here's a quick review on how to solve them or what can be causing the problem:
+
+* Failed synthesis with no syntax mistakes:
+	There sould be an extra source automatically created by Vivado and the extension is dcp, to eliminate this critital warning, delete this file.
+* 
 
 
 ## Extra: Mock-up <a name="ext"></a>
