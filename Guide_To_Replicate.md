@@ -535,9 +535,18 @@ The whole implementation process needs to be ran everytime there's a change on a
 
 For more information about the implementation process on Artix-7 FPGA, please refere to [this link](https://docs.xilinx.com/r/en-US/ug949-vivado-design-methodology/Design-Implementation)
 
+Also the tests were made using leds, as it can be seen in the next video:
+
+https://user-images.githubusercontent.com/93169706/204967388-1761579a-dc66-4a0f-9218-e145b20e93a1.mp4
+
 
 ### JUST WTF with the FPGA CLOCK?
 The FPGA clock has a frequency of 10000 Mhz 
+Before, anything it were made tests of the frequency and what it was needed to use the FPGA clk. Therefore here you can [acces](./Extra_Tests/CLK) the vivado file of that unique segment.
+
+
+https://user-images.githubusercontent.com/93169706/204967063-afad114b-449f-4d43-8769-16b62753f7b4.mp4
+
 
 
 ### DEBUGGING
@@ -576,6 +585,19 @@ As for the traffic lights, they were 3D printed; the front part (the one with ho
 
 All of the cables that came from the LED lights were welded into a welding plate, where resistors for each individual LED light were also welded and therefore connected.For organization purposes, each cable corresponding to an LED light was welded to headers to make an easier connection with the PMOD ports on the Basys 3. After labeling each traffic light and checking, according to the Master xdc file, where each connection should be, the headers went into their corresponding ports.
 
-
 ![maqueta terminada 2](https://user-images.githubusercontent.com/93169706/204583490-dc14ea5f-824b-4307-b178-f5c2a085b111.jpg)
+
+Also the used display was the FPGA one but for esthetic purposes reasons we recommend use an exernal one. For that keep in count that the FPGA one is the type of common anode, so it works with 0 (led on), 1 (led off). So if you use of common cathode you will need to change the BCD to 7segment display component.
+And also you can avoid the outputs of activation wich are only necesaary for the FPGA display. Here is an image of the counter working.
+
 <!![reloj](https://user-images.githubusercontent.com/93169706/204583514-d01c59f2-2551-43bf-9f53-a704f049d8de.png)>
+
+
+
+https://user-images.githubusercontent.com/93169706/204967805-b91eac43-b0cf-4fd7-85d0-5406f2e4bc53.mp4
+
+
+
+
+# THE END
+Hope that this was of Help!!! :)
