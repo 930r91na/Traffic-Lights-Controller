@@ -7,7 +7,7 @@ The purpose of this project is to design, build and demonstrate the correct func
 <!Image of finished project>
 <img src="https://user-images.githubusercontent.com/93169706/204583413-05c93751-8418-4080-a862-bc4307ead1fb.jpg" width="200">
 
-# Table of Contents
+# Table of Contents <a name="zero"></a>
 1. [1st STEP: Establish the logic of traffic lights and the cruise](#one)
 2. [2nd STEP: Establish the VHDL Design](#two)
 3. [3rd STEP: Coding Components](#tre)
@@ -54,7 +54,7 @@ From that table it can be easily selected n combination of states that avoid acc
 
 In this case were selected the four combinations in which it was priorized that all the TL were at least at one moment on (allowed to pass) and using the combinaions that had more cars invloved because the flow of cars is greater than the pedestrians or bikes in the context of the cruise.
 
-
+[Return to Table of Contents](#zero)
 ## 2nd STEP: Establish the VHDL Design <a name="two"></a>
 
 The design established is in structural. There ia a controller for all the TL is the part when it changes from state to state or combination to combination. The second is a controller of the inner lights of a TL in case of the 2 states, green is on when 1 and red when 0, it is direct. But in the four state TL is needed a inner clock that coordinate the changes and the blink. Finally with those main components there is the next sketch of the relationship from input and outputs.
@@ -80,6 +80,7 @@ The zoom to the main parts:
 
 In this it can be seen that the TL2 state is unrequired because the output is mainly the input, and so that component is unnecesary.
 
+[Return to Table of Contents](#zero)
 
 ## 3rd STEP: Coding Components <a name="tre"></a>
 
@@ -300,6 +301,7 @@ begin
         end if;
 ...
 ```
+[Return to Table of Contents](#zero)
  
 ## 4th STEP: Unite Code <a name="fou"></a>
 
@@ -478,6 +480,8 @@ The schematic of the components is the following:
 <img src="https://user-images.githubusercontent.com/93169706/204679453-b38c05a2-0094-45d4-885b-c1c07010ce78.png" width="900">
 Here is clearly seen the inputs, outputs, components ah how everything is interwined.
 
+[Return to Table of Contents](#zero)
+
 ## 5th STEP: Testing <a name="fiv"></a>
 ### Testbench Code
 
@@ -507,6 +511,8 @@ end tb;
 The simulation can be seen in the following image
 ![MicrosoftTeams-image (5)](https://user-images.githubusercontent.com/93169706/204680019-0d43d1f7-3243-4c4a-982b-5126d3317622.png)
 And it is seen how succefully the transitions are made in the 2 and 4 states TL
+
+[Return to Table of Contents](#zero)
 
 ## 6th STEP: Implementig <a name="six"></a>
 ### Technical sepcifications
@@ -561,6 +567,7 @@ The next warnings were really frequent when designing the traffic light's contro
 
 * Combinatorial Loop Alert: This means some data is serving as a feedback, meaning that is an output and an input at the same time when it is only declared as one. Solutions include using keywords "buffer" or "inout" or, as it happened in this project, changing the conditions of counters, since this warning came up when we accidentally created an "infinite" counter.
 
+[Return to Table of Contents](#zero)
 
 ## Extra: Mock-up <a name="ext"></a>
 ### Materials
@@ -597,7 +604,7 @@ And also using a external one you can avoid the outputs of activation wich are o
 https://user-images.githubusercontent.com/93169706/204967805-b91eac43-b0cf-4fd7-85d0-5406f2e4bc53.mp4
 
 
-
+[Return to Table of Contents](#zero)
 
 # THE END
 Hope that this was of Help!!! :)
