@@ -569,8 +569,12 @@ The next warnings were really frequent when designing the traffic light's contro
 ### 
 
 The main base of the mock-up was a 60x60 cms mdf wooden square, aditionally, rectangles were also obtained with the laser cutter; this was done to obtained a box-like base so that the cables and FPGA would be inside of it. All of the wooden pieces were glued with white glue, specifically the one labeled as useful for gluing wood, for arts and crafts.
-As for the traffic lights, they were 3D printed; the front part (the one with holes for the corresponding LED lights) was attached to the pole; after the LED lights were placed and the cable was conducted into and out of the pole, the other half of the traffic light cabin was glued. all of the cables that came from the LED lights were welded into a welding plate, where resistors for each individual LED light were also welded and therefore connected.
-For organization purposes, each cable corresponding to an LED light was welded to headers to make an easier connection with the PMOD ports on the Basys 3. After labeling each traffic light and checking, according to the Master xdc file, where each connection should be, the headers went into their corresponding ports.
+
+The painting on the surface was done with spray paint, masking tape and white paint markers. The shapes and ground illustrations were made accoring to the original reference picture. Remember always use glue and spray paint on a opened and well ventilated space, preferably, combine it with self-protection equipment such as gloves, face masks and glasses.
+
+As for the traffic lights, they were 3D printed; the front part (the one with holes for the corresponding LED lights) was attached to the pole; after the LED lights were placed and the cable was conducted into and out of the pole, the other half of the traffic light cabin was glued with fast drying glue. 
+
+All of the cables that came from the LED lights were welded into a welding plate, where resistors for each individual LED light were also welded and therefore connected.For organization purposes, each cable corresponding to an LED light was welded to headers to make an easier connection with the PMOD ports on the Basys 3. After labeling each traffic light and checking, according to the Master xdc file, where each connection should be, the headers went into their corresponding ports.
 
 
 ![maqueta terminada 2](https://user-images.githubusercontent.com/93169706/204583490-dc14ea5f-824b-4307-b178-f5c2a085b111.jpg)
