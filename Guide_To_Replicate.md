@@ -608,3 +608,7 @@ https://user-images.githubusercontent.com/93169706/204967805-b91eac43-b0cf-4fd7-
 
 # THE END
 Hope that this was of Help!!! :)
+
+## Authors
+- [Georgina Zeron](https://github.com/930r91na)
+- [Karla Gonzalez](https://github.com/karlagonzalezcs)
